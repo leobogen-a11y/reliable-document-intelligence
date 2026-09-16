@@ -13,6 +13,7 @@ from receipt_intelligence.domain.models import (
     ValidationIssue,
     ValidationSeverity,
 )
+from receipt_intelligence.validation import build_processing_decision, validate_receipt
 
 __all__ = [
     "BoundingBox",
@@ -26,5 +27,7 @@ __all__ = [
     "ReviewReason",
     "ValidationIssue",
     "ValidationSeverity",
+    "build_processing_decision",
+    "validate_receipt",
 ]
 
