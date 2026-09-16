@@ -18,7 +18,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-DEFAULT_MODEL = "gemini-2.5-flash"
+DEFAULT_MODEL = "gemini-3.6-flash"
 _ENDPOINT_TEMPLATE = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 
 
