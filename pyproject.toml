@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reliable-document-intelligence"
+version = "0.1.0"
+description = "Reliability-first extraction and validation of structured receipt data."
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.12,<3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.1,<10.0",
+]
+analysis = [
+    "duckdb>=1.4,<2.0",
+]
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib", "-ra"]
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

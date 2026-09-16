@@ -1,0 +1,154 @@
+{
+  "adapter_error_details": {},
+  "adapter_error_examples": [],
+  "amount_formats": {
+    "comma_plain": 3564,
+    "comma_with_affix": 53,
+    "digits_only_plain": 382,
+    "digits_only_with_affix": 60,
+    "dot_plain": 1179,
+    "dot_with_affix": 111,
+    "mixed_separators_plain": 192,
+    "mixed_separators_with_affix": 12
+  },
+  "canonical_document_field_statuses": {
+    "currency": {
+      "not_annotated": 1000
+    },
+    "subtotal": {
+      "extracted": 660,
+      "not_annotated": 2,
+      "not_present": 338
+    },
+    "tax": {
+      "extracted": 433,
+      "not_annotated": 7,
+      "not_present": 560
+    },
+    "total": {
+      "extracted": 971,
+      "not_annotated": 1,
+      "not_present": 28
+    }
+  },
+  "canonical_line_item_field_statuses": {
+    "description": {
+      "extracted": 2569,
+      "not_present": 8
+    },
+    "line_total": {
+      "extracted": 2559,
+      "not_present": 18
+    },
+    "quantity": {
+      "extracted": 2331,
+      "not_present": 246
+    },
+    "unit_price": {
+      "extracted": 737,
+      "not_present": 1840
+    }
+  },
+  "document_field_presence": {
+    "discount": {
+      "count": 73,
+      "rate": 0.073
+    },
+    "line_items": {
+      "count": 1000,
+      "rate": 1.0
+    },
+    "other_service_charge": {
+      "count": 1,
+      "rate": 0.001
+    },
+    "service_charge": {
+      "count": 123,
+      "rate": 0.123
+    },
+    "subtotal": {
+      "count": 661,
+      "rate": 0.661
+    },
+    "subtotal_other": {
+      "count": 76,
+      "rate": 0.076
+    },
+    "tax": {
+      "count": 444,
+      "rate": 0.444
+    },
+    "total": {
+      "count": 972,
+      "rate": 0.972
+    }
+  },
+  "documents": {
+    "adapter_errors": 0,
+    "adapter_successes": 1000,
+    "by_split": {
+      "test": 100,
+      "train": 800,
+      "valid": 100
+    },
+    "total": 1000,
+    "valid_json": 1000
+  },
+  "line_item_field_presence": {
+    "description": {
+      "count": 2569,
+      "rate": 0.9969
+    },
+    "line_total": {
+      "count": 2559,
+      "rate": 0.993
+    },
+    "quantity": {
+      "count": 2331,
+      "rate": 0.9045
+    },
+    "unit_price": {
+      "count": 737,
+      "rate": 0.286
+    }
+  },
+  "line_items": {
+    "by_split": {
+      "test": 251,
+      "train": 2105,
+      "valid": 221
+    },
+    "per_document": {
+      "max": 22,
+      "mean": 2.577,
+      "median": 2.0,
+      "min": 1,
+      "p95": 7
+    },
+    "total": 2577
+  },
+  "menu_shape": {
+    "list": 569,
+    "object": 431
+  },
+  "normalization_errors": {
+    "amount_not_string": 17,
+    "amount_unparseable": 6,
+    "quantity_not_string": 1
+  },
+  "quantity_formats": {
+    "decimal": 47,
+    "integer": 1884,
+    "other": 15,
+    "x_after_number": 260,
+    "x_before_number": 124
+  },
+  "source": {
+    "advertised_parquet_bytes": 2307284272,
+    "dataset": "naver-clova-ix/cord-v2",
+    "parquet_files": 6,
+    "retrieved_columns": [
+      "ground_truth"
+    ]
+  }
+}
