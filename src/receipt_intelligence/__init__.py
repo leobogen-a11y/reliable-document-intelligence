@@ -16,6 +16,9 @@ from receipt_intelligence.domain.models import (
 from receipt_intelligence.validation import build_processing_decision, validate_receipt
 from receipt_intelligence.baseline import extract_baseline
 from receipt_intelligence.ocr import OcrLine, run_tesseract_ocr
+from receipt_intelligence.ai_extraction import extract_with_gemini
+from receipt_intelligence.adapters.gemini import GeminiAdapterError, adapt_gemini_response
+from receipt_intelligence.gemini_client import GeminiError
 from receipt_intelligence.evaluation import (
     DocumentEvaluation,
     EvaluationReport,
@@ -56,5 +59,9 @@ __all__ = [
     "extract_baseline",
     "OcrLine",
     "run_tesseract_ocr",
+    "extract_with_gemini",
+    "GeminiAdapterError",
+    "adapt_gemini_response",
+    "GeminiError",
 ]
 
