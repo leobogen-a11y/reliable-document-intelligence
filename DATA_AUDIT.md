@@ -126,10 +126,18 @@ Modellfehler misszudeuten.
 `gemini-3.6-flash` erlaubte im Test nur 20 Requests, dann `429`
 ("generate_content_free_tier_requests", Reset laut Google-Doku um
 Mitternacht Pacific Time). Kontingente sind pro Modell getrennt - ein Wechsel
-auf `gemini-3.1-flash-lite` (siehe `gemini_client.py`) hat sofort wieder
-funktioniert. Für den geplanten 100-Belege-Vergleich muss das Kontingent des
-tatsächlich verwendeten Modells vorher eingeplant werden (ggf. über mehrere
-Tage verteilen).
+auf `gemini-3.1-flash-lite` (siehe `gemini_client.py`) hat zunächst wieder
+funktioniert.
+
+**Korrektur nach dem 50-Belege-Lauf:** `gemini-3.1-flash-lite` hat mit **15
+Requests/Tag ein noch niedrigeres** Kontingent als `gemini-3.6-flash` (20) -
+entgegen der Erwartung aus Googles "günstiger/schneller"-Positionierung der
+Lite-Variante. Kontingente lassen sich also nicht zuverlässig aus der
+Modell-Beschreibung ableiten, nur empirisch prüfen. Mit 15-20 Requests/Tag
+braucht ein vollständiger 100-Belege-Vergleich realistisch **5-7 Tage**,
+verteilt über mehrere Läufe. `scripts/compare_approaches.py` unterstützt das
+über `--offset`/`--limit` und führt Ergebnisse dokumentweise zusammen
+(`document_results` im Report), statt bei jedem Lauf zu überschreiben.
 
 ## Vollständige Annotationsanalyse
 

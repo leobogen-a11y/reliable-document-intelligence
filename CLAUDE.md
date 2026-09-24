@@ -40,8 +40,18 @@ Implementiert und vollständig getestet (`pytest`, aktuell alle Tests grün):
    `ai_extraction.py`) - nutzt denselben OCR-Text wie die Baseline (fairer
    Vergleich, spart Kosten: Text- statt Bild-Tokens) und schickt ihn mit
    schema-constrained Prompt an die **kostenlose Gemini-API-Stufe**.
+7. **HTTP-API** (`api.py`, FastAPI) - `POST /extract?approach=baseline|gemini`
+   nimmt ein JPEG/PNG-Bild entgegen, läuft durch OCR → gewählten Ansatz →
+   Validierung → Decision, gibt `ReceiptResult` zurück (Extraction +
+   Validation Issues + Decision zusammen, wie in SCHEMA_DESIGN.md
+   versprochen). `GET /health` für Deployment-Healthchecks. Reimplementiert
+   keine Logik, ruft nur `baseline.py`/`ai_extraction.py`/`validation.py`
+   auf. **PDF-Eingabe (in PROJECT_BRIEF.md erwähnt) ist noch nicht
+   implementiert** - nur JPEG/PNG, bewusst dokumentierte Lücke statt
+   stillschweigend falsch behandelt. Start: `uvicorn
+   receipt_intelligence.api:app --reload`.
 
-## Offener Punkt / nächster Schritt (Stand: 2026-09-16)
+## Offener Punkt / nächster Schritt (Stand: 2026-09-24)
 
 `GOOGLE_API_KEY` liegt in `.env` (gitignored, bereits vorhanden). Live-Smoke-
 Test und ein erster 10-Belege-Vergleich (`scripts/compare_approaches.py`)
@@ -51,10 +61,23 @@ liefen erfolgreich. Wichtige Erkenntnisse aus diesem Lauf:
   `gemini-3.6-flash`.** Grund: `gemini-3.6-flash`s Free-Tier-Kontingent lag
   bei nur 20 Requests/Tag (429 "generate_content_free_tier_requests",
   Reset um Mitternacht Pacific Time) - zu knapp für einen 100-Belege-
-  Vergleich. Kontingente sind pro Modell getrennt; `gemini-3.1-flash-lite`
-  hatte sofort wieder Kapazität. **Bei erneuten Modell- oder Quota-Fehlern
-  prüfen, ob sich das wieder geändert hat** (Modellnamen UND Kontingente
-  waren in dieser API-Generation schon zweimal in Bewegung).
+  Vergleich. Kontingente sind pro Modell getrennt. **Korrektur:**
+  `gemini-3.1-flash-lite` hat mit **15 Requests/Tag sogar noch weniger**
+  Kontingent als `gemini-3.6-flash` - Googles "günstiger/schneller"-
+  Positionierung der Lite-Variante sagt nichts über das Free-Tier-Kontingent
+  aus, das lässt sich nur empirisch prüfen. **Bei erneuten Modell- oder
+  Quota-Fehlern prüfen, ob sich das wieder geändert hat** (Modellnamen UND
+  Kontingente waren in dieser API-Generation schon mehrfach in Bewegung).
+- **Bewusste Entscheidung (2026-09-24): kein Umstieg auf das kostenpflichtige
+  Tier**, obwohl die tatsächlichen Kosten trivial wären (~$0,001/Beleg bei
+  `gemini-3.1-flash-lite`). Begründung: für ein Portfolio-Proof-of-Concept
+  bringt ein größeres Sample keinen Mehrwert, der die Free-Tier-Prämisse aus
+  diesem Dokument aufwiegt - im Gegenteil, das dokumentierte
+  Kontingent-Handling (Retry-Logik, Modellwechsel, ehrliche Dokumentation
+  der Grenzen) ist selbst ein gutes Bewerbungs-Talking-Point. Stattdessen:
+  Gemini-Sample über mehrere Tage auf ~30-50 Belege hochziehen
+  (`--offset`/`--limit` in `compare_approaches.py`), und parallel an der
+  API-Schicht weiterarbeiten (siehe Punkt 7 oben, inzwischen erledigt).
 - `gemini_client.py` hat jetzt Retry-mit-Backoff (`with_retry()`) für
   transiente 503er ("high demand"). Bewusst **kein** Retry auf 429, da das
   hier ein Tageskontingent-Fehler war, kein kurzfristiges Rate-Limit -
@@ -77,16 +100,20 @@ das kein Problem.
 1. ~~Live-Smoke-Test erfolgreich durchlaufen lassen~~ ✅ erledigt.
 2. ~~Für den Vergleich Entscheidung treffen: eigene Testbelege vs. CORD~~ ✅
    CORD gewählt, validation-Split heruntergeladen.
-3. Baseline vs. AI-Ansatz auf einem größeren Sample vergleichen (aktuell nur
-   10/100 validation-Belege wegen Gemini-Tageskontingent) - Qualität,
-   Coverage, False-Accept-Rate, Latenz, Kosten. Ggf. über mehrere Tage
-   verteilen, um das Kontingent nicht wieder zu sprengen.
-4. Dokumentierte API (kleine, z.B. FastAPI) um die beiden Ansätze.
+3. Baseline vs. AI-Ansatz auf einem größeren Sample vergleichen - aktuell
+   Baseline n=50, Gemini n=2 (Ungleichgewicht ist das eigentliche Problem,
+   nicht die absolute Größe). Ziel: Gemini schrittweise auf ~30-50 balanciert
+   hochziehen, über mehrere Tage verteilt (15 Requests/Tag-Kontingent bei
+   `gemini-3.1-flash-lite`). Kein Umstieg auf kostenpflichtiges Tier (siehe
+   oben, bewusste Entscheidung 2026-09-24).
+4. ~~Dokumentierte API (kleine, z.B. FastAPI) um die beiden Ansätze~~ ✅
+   erledigt (`api.py`, siehe Punkt 7 oben). PDF-Input fehlt noch.
 5. Live-Demo: Ziel ist Hugging Face Spaces (kostenlos, CPU-Tier reicht, da
    die eigentliche Modell-Inferenz über die Gemini-API läuft, nicht lokal).
+   Noch nicht begonnen.
 6. README-Politur, Architekturdiagramm, Vergleichs-Chart, Limitationen-
    Abschnitt (inkl. des Tesseract-Buchstaben-Befunds) - erst wenn die
-   Ergebnisse auf dem vollen Sample feststehen (siehe PROJECT_BRIEF.md
+   Ergebnisse auf dem balancierten Sample feststehen (siehe PROJECT_BRIEF.md
    Erfolgskriterien).
 
 ## Entwicklungsumgebung
@@ -94,8 +121,9 @@ das kein Problem.
 ```bash
 cd ~/Desktop/reliable-document-intelligence
 source .venv/bin/activate
-pip install -e ".[dev,baseline,analysis]"   # dev = pytest, baseline = pytesseract+pillow, analysis = duckdb
-pytest -q                                    # sollte komplett grün sein
+pip install -e ".[dev,baseline,analysis,api]"   # dev = pytest+httpx, baseline = pytesseract+pillow, analysis = duckdb, api = fastapi+uvicorn
+pytest -q                                        # sollte komplett grün sein
+uvicorn receipt_intelligence.api:app --reload    # API lokal starten (http://127.0.0.1:8000/health)
 ```
 
 Tesseract-Binary muss separat installiert sein (`brew install tesseract`,
@@ -103,11 +131,12 @@ inzwischen erledigt - nur "eng"+"osd"-Sprachdaten, siehe DATA_AUDIT.md zum
 Buchstaben-Erkennungs-Befund), `pytesseract`/`pillow` kommen über die
 `baseline`-Extras, `duckdb` über `analysis` (wird für
 `scripts/analyze_cord_annotations.py` und `scripts/compare_approaches.py`
-gebraucht, um die CORD-Parquet-Dateien zu lesen).
+gebraucht, um die CORD-Parquet-Dateien zu lesen), `fastapi`/`uvicorn`/
+`python-multipart` über `api`.
 
 **Falls der Projektordner mal verschoben/umbenannt wird:** `.venv` neu
 aufsetzen (`rm -rf .venv && python3.11 -m venv .venv && pip install -e
-".[dev,baseline,analysis]"`) - die editable-Install-Pointer-Datei enthält
+".[dev,baseline,analysis,api]"`) - die editable-Install-Pointer-Datei enthält
 den absoluten Pfad zum Erstellungszeitpunkt und bricht sonst still (Symptom:
 `pip` selbst meldet "bad interpreter", `pytest` läuft aber trotzdem weiter,
 weil es `--import-mode=importlib` nutzt statt der editable-Install - das hat

@@ -1,105 +1,4583 @@
 {
-  "sample_size": 10,
+  "sample_size": 50,
   "source": "data/cord-v2/validation/0000.parquet",
   "baseline": {
-    "document_count": 10,
+    "document_count": 50,
     "field_accuracy": {
-      "subtotal": 0.4,
-      "tax": 0.6,
-      "total": 0.0
+      "subtotal": 0.42,
+      "tax": 0.56,
+      "total": 0.08
     },
     "field_exact_match_rate": {
-      "subtotal": 0.4,
-      "tax": 0.6,
-      "total": 0.0
+      "subtotal": 0.42,
+      "tax": 0.56,
+      "total": 0.08
     },
-    "line_item_precision": 0.85,
-    "line_item_recall": 0.3833333333333333,
-    "line_item_f1": 0.7714285714285715,
-    "arithmetic_consistency_rate": 0.9,
+    "line_item_precision": 0.6350574712643678,
+    "line_item_recall": 0.35833333333333334,
+    "line_item_f1": 0.5935597136496685,
+    "arithmetic_consistency_rate": 0.86,
     "coverage": 0.0,
     "false_accept_rate": null
   },
   "gemini": {
-    "document_count": 10,
+    "document_count": 2,
     "field_accuracy": {
-      "subtotal": 0.4,
-      "tax": 0.6,
+      "subtotal": 0.5,
+      "tax": 0.5,
       "total": 0.0
     },
     "field_exact_match_rate": {
-      "subtotal": 0.4,
-      "tax": 0.6,
+      "subtotal": 0.5,
+      "tax": 0.5,
       "total": 0.0
     },
-    "line_item_precision": 0.7142857142857143,
-    "line_item_recall": 0.65,
-    "line_item_f1": 0.7857142857142857,
-    "arithmetic_consistency_rate": 0.9,
+    "line_item_precision": 0.75,
+    "line_item_recall": 0.8333333333333333,
+    "line_item_f1": 0.7333333333333334,
+    "arithmetic_consistency_rate": 0.5,
     "coverage": 0.0,
     "false_accept_rate": null
   },
-  "gemini_failures": 0,
-  "per_document": [
-    {
-      "document_id": "cord-valid-0",
-      "baseline_seconds": 0.2747795410687104,
-      "gemini_seconds": 13.851872083032504,
-      "gemini_error": null
+  "gemini_failures": 48,
+  "document_results": {
+    "cord-valid-0": {
+      "baseline_seconds": 0.45952766691334546,
+      "gemini_seconds": 8.608139290940017,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-0",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 1,
+          "ground_truth_count": 3,
+          "matched_count": 1,
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "f1": 0.5,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
     },
-    {
-      "document_id": "cord-valid-1",
-      "baseline_seconds": 0.3304744161432609,
-      "gemini_seconds": 6.070489750127308,
-      "gemini_error": null
+    "cord-valid-1": {
+      "baseline_seconds": 0.33271375007461756,
+      "gemini_seconds": 8.520810166024603,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-1",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 1,
+          "ground_truth_count": 1,
+          "matched_count": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
     },
-    {
-      "document_id": "cord-valid-2",
-      "baseline_seconds": 0.13469687511678785,
-      "gemini_seconds": 6.9797406260622665,
-      "gemini_error": null
+    "cord-valid-2": {
+      "baseline_seconds": 0.14687070809304714,
+      "gemini_seconds": 8.2346175420098,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-2",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
     },
-    {
-      "document_id": "cord-valid-3",
-      "baseline_seconds": 1.1666804580017924,
-      "gemini_seconds": 27.056573082925752,
-      "gemini_error": null
+    "cord-valid-3": {
+      "baseline_seconds": 1.2077427491312847,
+      "gemini_seconds": 10.18663291609846,
+      "gemini_error": null,
+      "baseline_evaluation": {
+        "document_id": "cord-valid-3",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": {
+        "document_id": "cord-valid-3",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 2,
+          "ground_truth_count": 1,
+          "matched_count": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "incorrect",
+              "exact_match": false
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "line_items[0].line_total"
+            ],
+            "message": "line_items[0].line_total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "line_items[1].line_total"
+            ],
+            "message": "line_items[1].line_total is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      }
     },
-    {
-      "document_id": "cord-valid-4",
-      "baseline_seconds": 0.1983674579532817,
-      "gemini_seconds": 2.613214916898869,
-      "gemini_error": null
+    "cord-valid-4": {
+      "baseline_seconds": 0.20434529101476073,
+      "gemini_seconds": 8.003043999895453,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-4",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
     },
-    {
-      "document_id": "cord-valid-5",
-      "baseline_seconds": 0.3651862919796258,
-      "gemini_seconds": 8.746383458026685,
-      "gemini_error": null
+    "cord-valid-5": {
+      "baseline_seconds": 0.3612320009851828,
+      "gemini_seconds": 3.479048917070031,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 523.181323ms.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-5",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
     },
-    {
-      "document_id": "cord-valid-6",
-      "baseline_seconds": 0.35257250093854964,
-      "gemini_seconds": 2.870645333896391,
-      "gemini_error": null
+    "cord-valid-6": {
+      "baseline_seconds": 0.3573939169291407,
+      "gemini_seconds": 0.6623585419729352,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 58.848971104s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-6",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 4,
+          "ground_truth_count": 3,
+          "matched_count": 3,
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "DOCUMENT_TOTAL_MISMATCH",
+            "severity": "error",
+            "field_paths": [
+              "total",
+              "line_items[0].line_total",
+              "line_items[1].line_total",
+              "line_items[2].line_total",
+              "line_items[3].line_total"
+            ],
+            "message": "sum of line_total values (176.100) does not match total (123.00), and no complete subtotal/tax breakdown is available to explain the difference"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field",
+            "validation_error"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
     },
-    {
-      "document_id": "cord-valid-7",
-      "baseline_seconds": 0.18577429093420506,
-      "gemini_seconds": 11.725752874976024,
-      "gemini_error": null
+    "cord-valid-7": {
+      "baseline_seconds": 0.18123737606219947,
+      "gemini_seconds": 0.4483427500817925,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 57.394027836s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-7",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
     },
-    {
-      "document_id": "cord-valid-8",
-      "baseline_seconds": 0.24210012599360198,
-      "gemini_seconds": 4.2271386260399595,
-      "gemini_error": null
+    "cord-valid-8": {
+      "baseline_seconds": 0.2176148749422282,
+      "gemini_seconds": 0.5537768329959363,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 55.836424776s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-8",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 2,
+          "ground_truth_count": 2,
+          "matched_count": 1,
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "incorrect",
+              "exact_match": false
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
     },
-    {
-      "document_id": "cord-valid-9",
-      "baseline_seconds": 0.3875755419721827,
-      "gemini_seconds": 7.388995083980262,
-      "gemini_error": null
+    "cord-valid-9": {
+      "baseline_seconds": 0.39070516696665436,
+      "gemini_seconds": 0.7067688760580495,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 54.119201421s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-9",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 1,
+          "ground_truth_count": 1,
+          "matched_count": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-10": {
+      "baseline_seconds": 0.251154417055659,
+      "gemini_seconds": 0.5110218330519274,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 52.606183249s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-10",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 2,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-11": {
+      "baseline_seconds": 0.3223778750980273,
+      "gemini_seconds": 8.705595707986504,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-11",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 3,
+          "ground_truth_count": 4,
+          "matched_count": 3,
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-12": {
+      "baseline_seconds": 0.4920542490435764,
+      "gemini_seconds": 8.789513707975857,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-12",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 1,
+          "ground_truth_count": 1,
+          "matched_count": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-13": {
+      "baseline_seconds": 0.4072420410811901,
+      "gemini_seconds": 8.7513673750218,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-13",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 1,
+          "ground_truth_count": 2,
+          "matched_count": 1,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "DOCUMENT_TOTAL_MISMATCH",
+            "severity": "error",
+            "field_paths": [
+              "subtotal",
+              "line_items[0].line_total"
+            ],
+            "message": "sum of line_total values (33.636) does not match subtotal (41.364)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field",
+            "validation_error"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-14": {
+      "baseline_seconds": 0.24522054207045585,
+      "gemini_seconds": 7.778263042098843,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-14",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 2,
+          "ground_truth_count": 2,
+          "matched_count": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "DOCUMENT_TOTAL_MISMATCH",
+            "severity": "error",
+            "field_paths": [
+              "subtotal",
+              "line_items[0].line_total",
+              "line_items[1].line_total"
+            ],
+            "message": "sum of line_total values (851600) does not match subtotal (36000)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field",
+            "validation_error"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-15": {
+      "baseline_seconds": 0.5717088340315968,
+      "gemini_seconds": 8.73536945891101,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-15",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 4,
+          "ground_truth_count": 2,
+          "matched_count": 1,
+          "precision": 0.25,
+          "recall": 0.5,
+          "f1": 0.3333333333333333,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "incorrect",
+              "exact_match": false
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "DOCUMENT_TOTAL_MISMATCH",
+            "severity": "error",
+            "field_paths": [
+              "subtotal",
+              "line_items[0].line_total",
+              "line_items[1].line_total",
+              "line_items[2].line_total",
+              "line_items[3].line_total"
+            ],
+            "message": "sum of line_total values (194606) does not match subtotal (54000)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field",
+            "validation_error"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-16": {
+      "baseline_seconds": 1.13987079099752,
+      "gemini_seconds": 1.4777095830067992,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 2.319693062s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-16",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 1,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-17": {
+      "baseline_seconds": 0.18534254108089954,
+      "gemini_seconds": 0.49427475000265986,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 814.205728ms.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-17",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 2,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-18": {
+      "baseline_seconds": 0.15420858305878937,
+      "gemini_seconds": 0.42607683304231614,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 59.382991806s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-18",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 2,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-19": {
+      "baseline_seconds": 0.30503595795016736,
+      "gemini_seconds": 0.6106956658186391,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 57.78180204s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-19",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 2,
+          "ground_truth_count": 3,
+          "matched_count": 2,
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-20": {
+      "baseline_seconds": 0.8703915419755504,
+      "gemini_seconds": 1.1954993749968708,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 55.580931514s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-20",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 4,
+          "ground_truth_count": 2,
+          "matched_count": 2,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-21": {
+      "baseline_seconds": 0.316738500026986,
+      "gemini_seconds": 0.6086745829088613,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 53.954227929s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-21",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 4,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-22": {
+      "baseline_seconds": 0.17205150006338954,
+      "gemini_seconds": 0.48894404200837016,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 52.458140216s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-22",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-23": {
+      "baseline_seconds": 0.18633195792790502,
+      "gemini_seconds": 7.924856249941513,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-23",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-24": {
+      "baseline_seconds": 0.560514000011608,
+      "gemini_seconds": 2.6023539170855656,
+      "gemini_error": null,
+      "baseline_evaluation": {
+        "document_id": "cord-valid-24",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 5,
+          "ground_truth_count": 6,
+          "matched_count": 5,
+          "precision": 1.0,
+          "recall": 0.8333333333333334,
+          "f1": 0.9090909090909091,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": {
+        "document_id": "cord-valid-24",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 4,
+          "ground_truth_count": 6,
+          "matched_count": 4,
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "DOCUMENT_TOTAL_MISMATCH",
+            "severity": "error",
+            "field_paths": [
+              "total",
+              "line_items[0].line_total",
+              "line_items[1].line_total",
+              "line_items[2].line_total",
+              "line_items[3].line_total"
+            ],
+            "message": "sum of line_total values (88.500) does not match total (100.000), and no complete subtotal/tax breakdown is available to explain the difference"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field",
+            "validation_error"
+          ],
+          "policy_version": "0.1.0"
+        }
+      }
+    },
+    "cord-valid-25": {
+      "baseline_seconds": 1.0798511669272557,
+      "gemini_seconds": 8.924817459075712,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-25",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 7,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-26": {
+      "baseline_seconds": 0.3666971670463681,
+      "gemini_seconds": 8.712558250059374,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-26",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 5,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-27": {
+      "baseline_seconds": 1.4576085830340162,
+      "gemini_seconds": 9.72288274904713,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-27",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-28": {
+      "baseline_seconds": 0.2923971660202369,
+      "gemini_seconds": 8.025934249977581,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-28",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 2,
+          "ground_truth_count": 2,
+          "matched_count": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-29": {
+      "baseline_seconds": 0.26164091599639505,
+      "gemini_seconds": 0.515640625031665,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 58.964606517s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-29",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 2,
+          "ground_truth_count": 1,
+          "matched_count": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "incorrect",
+              "exact_match": false
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-30": {
+      "baseline_seconds": 2.0376183330081403,
+      "gemini_seconds": 2.3466992489993572,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 55.615585002s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-30",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 1,
+          "ground_truth_count": 2,
+          "matched_count": 1,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-31": {
+      "baseline_seconds": 0.284858625032939,
+      "gemini_seconds": 0.6131043750792742,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 54.007929048s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-31",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-32": {
+      "baseline_seconds": 0.36762204207479954,
+      "gemini_seconds": 0.6875066660577431,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 52.306826611s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-32",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 2,
+          "ground_truth_count": 1,
+          "matched_count": 1,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "DOCUMENT_TOTAL_MISMATCH",
+            "severity": "error",
+            "field_paths": [
+              "subtotal",
+              "line_items[0].line_total",
+              "line_items[1].line_total"
+            ],
+            "message": "sum of line_total values (12000) does not match subtotal (6000)"
+          },
+          {
+            "code": "DOCUMENT_TOTAL_MISMATCH",
+            "severity": "error",
+            "field_paths": [
+              "total",
+              "line_items[0].line_total",
+              "line_items[1].line_total"
+            ],
+            "message": "sum of line_total values (12000) does not match total (6000), and no complete subtotal/tax breakdown is available to explain the difference"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field",
+            "validation_error"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-33": {
+      "baseline_seconds": 0.16767987504135817,
+      "gemini_seconds": 8.218170707928948,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-33",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 2,
+          "ground_truth_count": 2,
+          "matched_count": 2,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-34": {
+      "baseline_seconds": 0.26205791695974767,
+      "gemini_seconds": 8.09746937500313,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-34",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 8,
+          "ground_truth_count": 4,
+          "matched_count": 4,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "DOCUMENT_TOTAL_MISMATCH",
+            "severity": "error",
+            "field_paths": [
+              "total",
+              "line_items[0].line_total",
+              "line_items[1].line_total",
+              "line_items[2].line_total",
+              "line_items[3].line_total",
+              "line_items[4].line_total",
+              "line_items[5].line_total",
+              "line_items[6].line_total",
+              "line_items[7].line_total"
+            ],
+            "message": "sum of line_total values (687.676) does not match total (338), and no complete subtotal/tax breakdown is available to explain the difference"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field",
+            "validation_error"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-35": {
+      "baseline_seconds": 1.2164213329087943,
+      "gemini_seconds": 9.312443041941151,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-35",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 4,
+          "ground_truth_count": 4,
+          "matched_count": 4,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-36": {
+      "baseline_seconds": 0.25113304099068046,
+      "gemini_seconds": 8.326771624968387,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-36",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-37": {
+      "baseline_seconds": 0.34748762589879334,
+      "gemini_seconds": 8.113953999942169,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-37",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 2,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-38": {
+      "baseline_seconds": 1.129596000071615,
+      "gemini_seconds": 4.207772625028156,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 59.980421915s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-38",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 1,
+          "ground_truth_count": 1,
+          "matched_count": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "incorrect",
+              "exact_match": false
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-39": {
+      "baseline_seconds": 1.2180600420106202,
+      "gemini_seconds": 1.545169249875471,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 57.422408234s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-39",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 5,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-40": {
+      "baseline_seconds": 0.3995790840126574,
+      "gemini_seconds": 0.6939325000857934,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 55.724170988s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-40",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 1,
+          "ground_truth_count": 3,
+          "matched_count": 1,
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "f1": 0.5,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "DOCUMENT_TOTAL_MISMATCH",
+            "severity": "error",
+            "field_paths": [
+              "total",
+              "line_items[0].line_total"
+            ],
+            "message": "sum of line_total values (0) does not match total (345.000), and no complete subtotal/tax breakdown is available to explain the difference"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field",
+            "validation_error"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-41": {
+      "baseline_seconds": 0.3823781250976026,
+      "gemini_seconds": 0.6947546249721199,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 54.012602044s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-41",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 12,
+          "ground_truth_count": 11,
+          "matched_count": 11,
+          "precision": 0.9166666666666666,
+          "recall": 1.0,
+          "f1": 0.9565217391304348,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            },
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-42": {
+      "baseline_seconds": 0.21705445798579603,
+      "gemini_seconds": 0.5437097490066662,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 52.478813801s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-42",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 3,
+          "ground_truth_count": 3,
+          "matched_count": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-43": {
+      "baseline_seconds": 0.3251261259429157,
+      "gemini_seconds": 8.282023167936131,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-43",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 2,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-44": {
+      "baseline_seconds": 1.3977690000319853,
+      "gemini_seconds": 9.336896958993748,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-44",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-45": {
+      "baseline_seconds": 0.2362018331186846,
+      "gemini_seconds": 8.101985375047661,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-45",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 4,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-46": {
+      "baseline_seconds": 0.2256847081007436,
+      "gemini_seconds": 8.509455666062422,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-46",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 2,
+          "ground_truth_count": 1,
+          "matched_count": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-47": {
+      "baseline_seconds": 0.32861749990843236,
+      "gemini_seconds": 8.093023165944032,
+      "gemini_error": "Gemini request failed (503): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-47",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 1,
+          "ground_truth_count": 1,
+          "matched_count": 1,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "field_comparisons": [
+            {
+              "field_path": "line_items.description",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.line_total",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.quantity",
+              "outcome": "incorrect",
+              "exact_match": false
+            },
+            {
+              "field_path": "line_items.unit_price",
+              "outcome": "correct",
+              "exact_match": true
+            }
+          ]
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-48": {
+      "baseline_seconds": 0.27786254219245166,
+      "gemini_seconds": 3.472234666114673,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 631.032292ms.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-48",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "total",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 0,
+          "ground_truth_count": 3,
+          "matched_count": 0,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
+    },
+    "cord-valid-49": {
+      "baseline_seconds": 0.3985634158598259,
+      "gemini_seconds": 0.6919895829632878,
+      "gemini_error": "Gemini request failed (429): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 58.928981595s.",
+      "baseline_evaluation": {
+        "document_id": "cord-valid-49",
+        "document_field_comparisons": [
+          {
+            "field_path": "subtotal",
+            "outcome": "incorrect",
+            "exact_match": false
+          },
+          {
+            "field_path": "tax",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "total",
+            "outcome": "correct",
+            "exact_match": true
+          },
+          {
+            "field_path": "currency",
+            "outcome": "not_evaluable",
+            "exact_match": null
+          }
+        ],
+        "line_items": {
+          "predicted_count": 4,
+          "ground_truth_count": 2,
+          "matched_count": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "field_comparisons": []
+        },
+        "validation_issues": [
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "total"
+            ],
+            "message": "total is required for automatic acceptance but was not extracted (status=not_present)"
+          },
+          {
+            "code": "MISSING_CRITICAL_FIELD",
+            "severity": "error",
+            "field_paths": [
+              "currency"
+            ],
+            "message": "currency is required for automatic acceptance but was not extracted (status=not_present)"
+          }
+        ],
+        "decision": {
+          "requires_review": true,
+          "reasons": [
+            "missing_critical_field"
+          ],
+          "policy_version": "0.1.0"
+        }
+      },
+      "gemini_evaluation": null
     }
-  ]
+  }
 }
