@@ -12,14 +12,38 @@ to be run locally with an actual API key.
 from __future__ import annotations
 
 import json
+import time
 import urllib.error
 import urllib.request
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-DEFAULT_MODEL = "gemini-3.6-flash"
+# gemini-3.6-flash's free tier turned out to allow only 20 requests/day
+# (observed via a 429 "generate_content_free_tier_requests" quota error),
+# too tight for even a single 100-document comparison run. Free-tier quotas
+# are per-model (confirmed empirically: switching model here unblocks
+# requests immediately even while gemini-3.6-flash is still exhausted), and
+# the "flash-lite" variants are positioned by Google as the cheaper/higher-
+# throughput tier - gemini-3.1-flash-lite specifically as "frontier-class
+# performance...at a fraction of the cost" per ai.google.dev/gemini-api/docs/models,
+# which made it the more promising trade than gemini-3.5-flash-lite for this
+# project's precision-first comparison. Re-check this if quota errors return.
+DEFAULT_MODEL = "gemini-3.1-flash-lite"
 _ENDPOINT_TEMPLATE = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+
+# Status codes worth retrying: transient server-side unavailability, where a
+# short wait plausibly helps. A 503 "high demand" response from the free
+# tier is the one actually observed in practice so far - see CLAUDE.md.
+# Deliberately excludes 429: observed free-tier responses ("limit: 20,
+# model: gemini-3.6-flash", with a suggested retry delay of 10-35+ seconds)
+# indicate a request-rate quota that will not clear within this function's
+# few-second backoff window. Retrying it here would just burn through the
+# quota faster for no realistic chance of success - a 429 should surface to
+# the caller immediately instead.
+_RETRYABLE_STATUS_CODES = frozenset({500, 502, 503, 504})
+_DEFAULT_MAX_ATTEMPTS = 3
+_DEFAULT_INITIAL_DELAY_SECONDS = 2.0
 
 
 @dataclass(frozen=True)
@@ -96,6 +120,37 @@ def _extract_json_payload(body: dict[str, Any]) -> dict[str, Any]:
     return payload
 
 
+def with_retry(
+    http_post: HttpPost,
+    *,
+    max_attempts: int = _DEFAULT_MAX_ATTEMPTS,
+    initial_delay_seconds: float = _DEFAULT_INITIAL_DELAY_SECONDS,
+    sleep: Callable[[float], None] = time.sleep,
+) -> HttpPost:
+    """Wrap an ``HttpPost`` with retry-and-backoff for transient failures.
+
+    Only retries responses whose status code indicates transient server-side
+    unavailability (see ``_RETRYABLE_STATUS_CODES``); a persistent error
+    (e.g. a 400 for a malformed request, or a 429 quota/rate-limit error) is
+    returned on the first attempt so :func:`call_gemini` can raise its usual
+    ``GeminiError`` without delay. ``sleep`` is injectable so tests can
+    exercise the retry loop without waiting in real time.
+    """
+
+    def wrapped(url: str, json_body: dict[str, Any], headers: dict[str, str]) -> HttpResponse:
+        delay = initial_delay_seconds
+        response = http_post(url, json_body, headers)
+        for _ in range(max_attempts - 1):
+            if response.status_code not in _RETRYABLE_STATUS_CODES:
+                return response
+            sleep(delay)
+            delay *= 2
+            response = http_post(url, json_body, headers)
+        return response
+
+    return wrapped
+
+
 def urllib_http_post(url: str, json_body: dict[str, Any], headers: dict[str, str]) -> HttpResponse:
     """Real HTTP POST via the standard library only - no extra SDK dependency."""
 
@@ -111,3 +166,8 @@ def urllib_http_post(url: str, json_body: dict[str, Any], headers: dict[str, str
         except json.JSONDecodeError:
             body = {"error": {"message": body_bytes.decode(errors="replace")}}
         return HttpResponse(status_code=exc.code, body=body)
+
+
+# What production callers should pass by default: a real network call with
+# retry-and-backoff for the free tier's occasional transient 503s.
+DEFAULT_HTTP_POST: HttpPost = with_retry(urllib_http_post)

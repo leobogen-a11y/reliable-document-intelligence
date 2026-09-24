@@ -1,0 +1,105 @@
+{
+  "sample_size": 10,
+  "source": "data/cord-v2/validation/0000.parquet",
+  "baseline": {
+    "document_count": 10,
+    "field_accuracy": {
+      "subtotal": 0.4,
+      "tax": 0.6,
+      "total": 0.0
+    },
+    "field_exact_match_rate": {
+      "subtotal": 0.4,
+      "tax": 0.6,
+      "total": 0.0
+    },
+    "line_item_precision": 0.85,
+    "line_item_recall": 0.3833333333333333,
+    "line_item_f1": 0.7714285714285715,
+    "arithmetic_consistency_rate": 0.9,
+    "coverage": 0.0,
+    "false_accept_rate": null
+  },
+  "gemini": {
+    "document_count": 10,
+    "field_accuracy": {
+      "subtotal": 0.4,
+      "tax": 0.6,
+      "total": 0.0
+    },
+    "field_exact_match_rate": {
+      "subtotal": 0.4,
+      "tax": 0.6,
+      "total": 0.0
+    },
+    "line_item_precision": 0.7142857142857143,
+    "line_item_recall": 0.65,
+    "line_item_f1": 0.7857142857142857,
+    "arithmetic_consistency_rate": 0.9,
+    "coverage": 0.0,
+    "false_accept_rate": null
+  },
+  "gemini_failures": 0,
+  "per_document": [
+    {
+      "document_id": "cord-valid-0",
+      "baseline_seconds": 0.2747795410687104,
+      "gemini_seconds": 13.851872083032504,
+      "gemini_error": null
+    },
+    {
+      "document_id": "cord-valid-1",
+      "baseline_seconds": 0.3304744161432609,
+      "gemini_seconds": 6.070489750127308,
+      "gemini_error": null
+    },
+    {
+      "document_id": "cord-valid-2",
+      "baseline_seconds": 0.13469687511678785,
+      "gemini_seconds": 6.9797406260622665,
+      "gemini_error": null
+    },
+    {
+      "document_id": "cord-valid-3",
+      "baseline_seconds": 1.1666804580017924,
+      "gemini_seconds": 27.056573082925752,
+      "gemini_error": null
+    },
+    {
+      "document_id": "cord-valid-4",
+      "baseline_seconds": 0.1983674579532817,
+      "gemini_seconds": 2.613214916898869,
+      "gemini_error": null
+    },
+    {
+      "document_id": "cord-valid-5",
+      "baseline_seconds": 0.3651862919796258,
+      "gemini_seconds": 8.746383458026685,
+      "gemini_error": null
+    },
+    {
+      "document_id": "cord-valid-6",
+      "baseline_seconds": 0.35257250093854964,
+      "gemini_seconds": 2.870645333896391,
+      "gemini_error": null
+    },
+    {
+      "document_id": "cord-valid-7",
+      "baseline_seconds": 0.18577429093420506,
+      "gemini_seconds": 11.725752874976024,
+      "gemini_error": null
+    },
+    {
+      "document_id": "cord-valid-8",
+      "baseline_seconds": 0.24210012599360198,
+      "gemini_seconds": 4.2271386260399595,
+      "gemini_error": null
+    },
+    {
+      "document_id": "cord-valid-9",
+      "baseline_seconds": 0.3875755419721827,
+      "gemini_seconds": 7.388995083980262,
+      "gemini_error": null
+    }
+  ]
+}

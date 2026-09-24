@@ -19,7 +19,7 @@ from receipt_intelligence.adapters.gemini import (
     build_prompt,
 )
 from receipt_intelligence.domain.models import ReceiptExtraction
-from receipt_intelligence.gemini_client import HttpPost, call_gemini, urllib_http_post
+from receipt_intelligence.gemini_client import DEFAULT_HTTP_POST, HttpPost, call_gemini
 from receipt_intelligence.ocr import OcrLine
 
 
@@ -28,12 +28,14 @@ def extract_with_gemini(
     *,
     document_id: str,
     api_key: str,
-    http_post: HttpPost = urllib_http_post,
+    http_post: HttpPost = DEFAULT_HTTP_POST,
 ) -> ReceiptExtraction:
     """Run the AI-based approach on already-OCR'd receipt lines.
 
-    ``http_post`` defaults to a real network call; pass a stub here (as the
-    test suite does) to exercise this function with zero network access.
+    ``http_post`` defaults to a real network call with retry-and-backoff for
+    transient failures (see ``gemini_client.with_retry``); pass a stub here
+    (as the test suite does) to exercise this function with zero network
+    access.
     """
 
     prompt = build_prompt([line.text for line in lines])

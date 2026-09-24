@@ -80,9 +80,56 @@ wurden.
 
 ## Noch offene Datenprüfungen
 
-- Bildqualität, Rotation, Auflösung und abgeschnittene Belege
+- Rotation und abgeschnittene Belege
 - Eignung des offiziellen Test-Splits für unsere Metriken
 - ergänzende Datenstrategie für Währung und europäische/deutsche Belege
+
+## Erster Baseline/AI-Vergleich auf echten Bildern (10 validation-Belege, 2026-09-16)
+
+Der `validation`-Split (100 Belege, 231 MB, `data/cord-v2/validation/0000.parquet`,
+gitignored) wurde geladen, um `scripts/compare_approaches.py` erstmals auf
+echten Bildern statt nur auf der Ground-Truth-Spalte laufen zu lassen. Der
+`test`-Split bleibt bewusst unangetastet (siehe Eignungsentscheidung unten).
+
+### Befund: Tesseract liest auf diesem Beleg-Stil kaum Buchstaben, nur Ziffern
+
+Auf allen 10 geprüften Belegen lag die Feldgenauigkeit für `total` bei genau
+0 % - identisch für Baseline und Gemini. Ursache ist keine Logik, sondern die
+Bildqualität-Frage aus dem vorherigen Abschnitt: Tesseract (Standard-
+"eng"-Trainingsdaten) erkennt auf diesem Bon-Font Ziffern zuverlässig, aber so
+gut wie keinen Buchstaben - weder Artikelnamen noch die Schlüsselwörter
+`TOTAL`, `CASH`, `CHANGE`. Verifiziert durch:
+
+- rohe Tesseract-Wortboxen: von 28 erkannten Boxen enthielten nur 7 überhaupt
+  Zeichen, und zwar ausschließlich die reinen Zahlenzeilen;
+- ein synthetisches Testbild mit demselben Tesseract/Sprachpaket liest
+  "TOTAL CASH CHANGE HELLO 123" anstandslos - das Sprachpaket selbst
+  funktioniert also grundsätzlich;
+- Hochskalieren des Bilds (2x/3x) behebt es nicht.
+
+**Warum das beide Ansätze gleich trifft:** Baseline und Gemini bekommen laut
+Architekturentscheidung denselben OCR-Text (siehe `ai_extraction.py`,
+bewusst für Fairness/Kosten). Fehlt das Wort "TOTAL" im OCR-Text, kann keiner
+der beiden Ansätze wissen, welche der nackten Zahlen der Gesamtbetrag ist -
+das ist eine Grenze der "OCR-Text-an-LLM"-Architektur, keine Modellschwäche.
+Ein multimodaler Gemini-Aufruf (Bild statt OCR-Text) würde das vermutlich
+kompensieren, wurde aber noch nicht getestet.
+
+**Konsequenz:** als dokumentierte Limitation stehen gelassen, keine
+OCR-Vorverarbeitung investiert (bewusste Entscheidung, um den "einfachen"
+Charakter der Baseline nicht zu verwässern). Für den finalen Vergleich auf
+mehr Belegen sollte dieser Effekt eingeplant werden, statt ihn als
+Modellfehler misszudeuten.
+
+### Nebenbefund: Gemini-Free-Tier-Kontingent ist pro Modell und pro Tag knapp
+
+`gemini-3.6-flash` erlaubte im Test nur 20 Requests, dann `429`
+("generate_content_free_tier_requests", Reset laut Google-Doku um
+Mitternacht Pacific Time). Kontingente sind pro Modell getrennt - ein Wechsel
+auf `gemini-3.1-flash-lite` (siehe `gemini_client.py`) hat sofort wieder
+funktioniert. Für den geplanten 100-Belege-Vergleich muss das Kontingent des
+tatsächlich verwendeten Modells vorher eingeplant werden (ggf. über mehrere
+Tage verteilen).
 
 ## Vollständige Annotationsanalyse
 
