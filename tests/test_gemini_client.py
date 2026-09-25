@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from receipt_intelligence.gemini_client import GeminiError, HttpResponse, call_gemini
+from receipt_intelligence.gemini_client import GeminiError, HttpResponse, call_gemini, with_retry
 
 SCHEMA = {"type": "OBJECT", "properties": {"foo": {"type": "STRING"}}}
 
@@ -89,3 +89,74 @@ def test_non_object_json_raises_gemini_error() -> None:
 
     with pytest.raises(GeminiError, match="not an object"):
         call_gemini("x", response_schema=SCHEMA, api_key="k", http_post=_stub(response, calls=[]))
+
+
+def _flaky_http_post(responses: list[HttpResponse], *, calls: list):
+    responses_iter = iter(responses)
+
+    def http_post(url, json_body, headers):
+        calls.append((url, json_body, headers))
+        return next(responses_iter)
+
+    return http_post
+
+
+def test_with_retry_retries_a_transient_503_then_succeeds() -> None:
+    success = HttpResponse(status_code=200, body={"foo": "bar"})
+    responses = [HttpResponse(status_code=503, body={"error": {"message": "high demand"}}), success]
+    calls: list = []
+    sleeps: list[float] = []
+
+    wrapped = with_retry(_flaky_http_post(responses, calls=calls), sleep=sleeps.append)
+    result = wrapped("url", {}, {})
+
+    assert result is success
+    assert len(calls) == 2
+    assert sleeps == [2.0]
+
+
+def test_with_retry_does_not_retry_a_non_transient_status() -> None:
+    response = HttpResponse(status_code=400, body={"error": {"message": "bad request"}})
+    calls: list = []
+    sleeps: list[float] = []
+
+    wrapped = with_retry(_flaky_http_post([response], calls=calls), sleep=sleeps.append)
+    result = wrapped("url", {}, {})
+
+    assert result is response
+    assert len(calls) == 1
+    assert sleeps == []
+
+
+def test_with_retry_does_not_retry_a_daily_quota_429() -> None:
+    # A 429 on this API has been observed to mean the daily free-tier quota
+    # is exhausted, not a short-lived rate limit - retrying would only burn
+    # through the remaining quota faster. See the _RETRYABLE_STATUS_CODES
+    # comment in gemini_client.py.
+    response = HttpResponse(status_code=429, body={"error": {"message": "quota exceeded"}})
+    calls: list = []
+    sleeps: list[float] = []
+
+    wrapped = with_retry(_flaky_http_post([response], calls=calls), sleep=sleeps.append)
+    result = wrapped("url", {}, {})
+
+    assert result is response
+    assert len(calls) == 1
+    assert sleeps == []
+
+
+def test_with_retry_gives_up_after_max_attempts() -> None:
+    failure = HttpResponse(status_code=503, body={"error": {"message": "high demand"}})
+    calls: list = []
+    sleeps: list[float] = []
+
+    wrapped = with_retry(
+        _flaky_http_post([failure, failure, failure], calls=calls),
+        max_attempts=3,
+        sleep=sleeps.append,
+    )
+    result = wrapped("url", {}, {})
+
+    assert result is failure
+    assert len(calls) == 3
+    assert sleeps == [2.0, 4.0]
